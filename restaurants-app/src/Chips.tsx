@@ -1,13 +1,17 @@
 import * as React from 'react';
-import { createTheme, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
+import FoodTags from './FoodTags';
+import { FC } from 'react';
+
+interface ChipsArrayProps {}
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
 
-export default function ChipsArray() {
+const ChipsArray: FC<ChipsArrayProps> = ({} : ChipsArrayProps) => {
   const [chipData, setChipData] = React.useState([
     { key: 0, label: 'Sushi' },
     { key: 1, label: 'Pizza' },
@@ -52,4 +56,6 @@ export default function ChipsArray() {
       })}
     </Paper>
   );
-}
+};
+
+export default ChipsArray;

@@ -1,33 +1,48 @@
 import React from 'react';
 import Map from './Map';
-import { Grid, Button } from '@mui/material';
-import {Container } from '@mui/system';
+import { Grid, Paper } from '@mui/material';
+import { Container } from '@mui/system';
 import SearchBar from "material-ui-search-bar";
 import { useState } from "react";
-import ChipsArray from './Chips'
-import FoodTags from './FoodTags'
+import ChipsArray from './Chips';
+import FoodTags from './FoodTags';
+import AddRestaurantModal from './AddRestaurantModal' 
+import Restaurant from './types/Restaurant'
 
 const data = [
   {
-    id: 1,
-    name: "Taqueria",
-    address: 'Levontin Street 28, Tel Aviv',
-    tags: [FoodTags.Mexican, FoodTags.Meat, FoodTags.Vegeterian]
+    Id: 1,
+    Name: "Taqueria",
+    Address: 'Levontin Street 28, Tel Aviv',
+    Tags: [FoodTags.Mexican.label, FoodTags.Meat.label, FoodTags.Vegeterian.label]
   },
   {
-    id: 2,
-    name: "Pasta via",
-    address: 'Shlomo Ibn Gabirol Street 142, Tel Aviv',
-    tags: [FoodTags.Italian, FoodTags.Dairy, FoodTags.Vegeterian]
+    Id: 2,
+    Name: "Pasta via",
+    Address: 'Shlomo Ibn Gabirol Street 142, Tel Aviv',
+    Tags: [FoodTags.Italian.label, FoodTags.Dairy.label, FoodTags.Vegeterian.label]
+  },
+  {
+    Id: 3,
+    Name: "Gourmet 26",
+    Address: 'Emanuel HaRomi Street 21, Tel Aviv',
+    Tags: [FoodTags.Burger.label, FoodTags.Meat.label]
+  },
+  {
+    Id: 4,
+    Name: "Moon",
+    Address: 'Shlomo Ibn Gabirol Street 142, Tel Aviv',
+    Tags: [FoodTags.Sushi.label, FoodTags.Vegeterian.label, FoodTags.Fish.label]
   },
 ];
 
-const searchableKeys = ["name"];
+const searchableKeys = ["Name"];
 
 export default function App() {
   const [results, setResults] = useState("");
+  const [restaurants, setRestaurants] = useState(data);
 
-  const filteredResults = data.filter((item) =>
+  const filteredResults = restaurants.filter((item) =>
     searchableKeys.some((key) =>
       item[key].toLowerCase().includes(results.toLowerCase())
     )
@@ -41,8 +56,8 @@ export default function App() {
         justifyContent="center"
         spacing={2}
         >
-          {/** Left Side Items */}
-        <Grid container xs={4} direction="column" height="600px" justifyContent="space-between">
+        {/** Left Side Items */}
+        <Grid container xs={4} direction="column" height="600px" justifyContent="space-between" margin="16px 0">
           <SearchBar
             value={results}
             onChange={(value) => setResults(value)}
@@ -51,12 +66,12 @@ export default function App() {
           />
           {/** Chips */}
           <ChipsArray />
-          <ul>
+          <Paper elevation={3}>
             {filteredResults.map((item) => (
-              <li key={item.id} style={{'list-style-type': 'none'}}>{item.name}</li>
+              <li key={item.Id} style={{'listStyleType': 'none', 'padding': '6px 12px'}}>{item.Name}</li>
             ))}
-          </ul>
-          <Button variant="contained" fullWidth='true'>Add Restaurant</Button>
+          </Paper>
+          <AddRestaurantModal restaurants={filteredResults} handleNewRestaurant={setRestaurants}/>
         </Grid>
         {/** Map */}
         <Grid item xs={8}>
