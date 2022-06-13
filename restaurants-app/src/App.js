@@ -41,6 +41,7 @@ const searchableKeys = ["Name"];
 export default function App() {
   const [results, setResults] = useState("");
   const [restaurants, setRestaurants] = useState(data);
+  const [tags, setActiveTags] = useState(FoodTags);
 
   const filteredResults = restaurants.filter((item) =>
     searchableKeys.some((key) =>
@@ -65,7 +66,7 @@ export default function App() {
             onCancelSearch={() => setResults("")}
           />
           {/** Chips */}
-          <ChipsArray />
+          <ChipsArray Tags={tags}/>
           <Paper elevation={3}>
             {filteredResults.map((item) => (
               <li key={item.Id} style={{'listStyleType': 'none', 'padding': '6px 12px'}}>{item.Name}</li>

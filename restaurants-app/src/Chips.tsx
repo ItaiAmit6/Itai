@@ -5,13 +5,15 @@ import Paper from '@mui/material/Paper';
 import FoodTags from './FoodTags';
 import { FC } from 'react';
 
-interface ChipsArrayProps {}
+interface ChipsArrayProps {
+  Tags: any
+}
 
 const ListItem = styled('li')(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
 
-const ChipsArray: FC<ChipsArrayProps> = ({} : ChipsArrayProps) => {
+const ChipsArray: FC<ChipsArrayProps> = ({Tags} : ChipsArrayProps) => {
   const [chipData, setChipData] = React.useState([
     { key: 0, label: 'Sushi' },
     { key: 1, label: 'Pizza' },

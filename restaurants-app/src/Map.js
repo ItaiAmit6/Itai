@@ -1,7 +1,5 @@
 import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import Marker from './Marker'
-import FoodTags from './FoodTags'
 
 const containerStyle = {
   width: '100%',
@@ -12,21 +10,6 @@ const center = {
   lat: 32.08561244111458,
   lng: 34.78274973139516
 };
-
-const data = [
-  {
-    id: 1,
-    name: "Taqueria",
-    address: 'Levontin Street 28, Tel Aviv',
-    tags: [FoodTags.Mexican, FoodTags.Meat, FoodTags.Vegeterian]
-  },
-  {
-    id: 2,
-    name: "Pasta via",
-    address: 'Shlomo Ibn Gabirol Street 142, Tel Aviv',
-    tags: [FoodTags.Italian, FoodTags.Dairy, FoodTags.Vegeterian]
-  },
-];
 
 function Map() {
   const { isLoaded } = useJsApiLoader({
@@ -47,20 +30,15 @@ function Map() {
   }, [])
 
   return isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={15}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        {/* {data.map((restaurant) => <Marker o ={restaurant.address}/>)} */}
-        <div
-                  lat={32.08120012296513}
-                  lng={34.781306284673015}
-                />
-      </GoogleMap>
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={15}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+    >
+      {/* {data.map((restaurant) => <Marker options ={restaurant.address}/>)} */}
+    </GoogleMap>
   ) : <></>
 }
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Grid, TextField, Modal, Button, Box } from '@mui/material';
 import ChipsArray from './Chips';
 import FoodTags from './FoodTags';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Restaurant from './types/Restaurant'
 
 interface AddRestaurantModalProps { 
@@ -25,14 +25,15 @@ const style = {
 const AddRestaurantModal: FC<AddRestaurantModalProps> = ({
   restaurants, handleNewRestaurant
 } : AddRestaurantModalProps) => {
-  const [open, setOpen] = React.useState(false);
-  const [name, setName] = React.useState('');
-  const [address, setAddress] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [tags, setActiveTags] = useState(FoodTags);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleNameChange = (e: any) => setName(e.target.value);
-  const handleAddressChange = (e: any) => setAddress(e.target.value);
+  const handleNameChange = (e) => setName(e.target.value);
+  const handleAddressChange = (e) => setAddress(e.target.value);
   function handleAdd() {
     const newList = restaurants.concat({ 
       Id: Math.max.apply(null, restaurants.map(item => item.Id)) + 1, 
@@ -57,7 +58,7 @@ const AddRestaurantModal: FC<AddRestaurantModalProps> = ({
             <br /><br />
             <TextField id="outlined-start-adornment" label="Address" variant="outlined" fullWidth onChange={handleAddressChange}/>
             <br /><br />
-            <ChipsArray />
+            <ChipsArray Tags={tags} />
             <Grid container spacing={2} marginTop="1px">
                 <Grid item xs={6}>
                     <Button variant="text" disableElevation fullWidth onClick={handleClose} >
